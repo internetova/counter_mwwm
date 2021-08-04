@@ -1,4 +1,4 @@
-import 'package:counter_mwwm/ui/component/round_button.dart';
+import 'package:counter_mwwm/ui/widgets/round_button.dart';
 import 'package:counter_mwwm/ui/screen/counter/counter_wm.dart';
 import 'package:counter_mwwm/ui/screen/res/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +31,7 @@ class _CounterScreenState
           const SizedBox(height: 80),
           _BuildButtons(
             onIncrement: wm.incrementAction,
-            onDecrement: () {},
-            // onDecrement: wm.decrementAction,
+            onDecrement: wm.decrementAction,
           ),
         ],
       ),

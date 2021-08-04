@@ -18,8 +18,7 @@ class CounterWidgetModel extends WidgetModel {
   /// -------------------------
   /// клик по кнопкам Увеличить / Уменьшить
   final incrementAction = VoidAction();
-
-  // final decrementAction = VoidAction();
+  final decrementAction = VoidAction();
 
   @override
   void onLoad() {
@@ -31,7 +30,7 @@ class CounterWidgetModel extends WidgetModel {
   @override
   void onBind() {
     subscribe(incrementAction.stream, _onIncrementAction);
-    // subscribe(incrementAction.stream, _onDecrementAction);
+    subscribe(decrementAction.stream, _onDecrementAction);
 
     super.onBind();
   }
@@ -42,23 +41,26 @@ class CounterWidgetModel extends WidgetModel {
     counterState.accept(interactor.getCounter());
   }
 
+  /// обрабатываем нажатие Увеличить
   void _onIncrementAction(_) {
     int currentValue = interactor.getCounter();
-
-    counterState.accept(currentValue + 1);
-    interactor.setCounter(currentValue + 1);
-
-    print('------onIncrement: currentValue - ${currentValue + 1}');
+    _changeCounter(currentValue, true);
   }
 
+  /// обрабатываем нажатие Уменьшить
   void _onDecrementAction(_) {
     int currentValue = interactor.getCounter();
 
     if (currentValue == 0) return;
 
-    counterState.accept(currentValue - 1);
-    interactor.setCounter(currentValue - 1);
+    _changeCounter(currentValue, false);
+  }
 
-    print('------onDecrement: currentValue - ${currentValue - 1}');
+  /// меняем значение счетчика
+  void _changeCounter(int value, bool isIncrement) {
+    int currentValue = isIncrement ? value + 1 : value - 1;
+
+    counterState.accept(currentValue);
+    interactor.setCounter(currentValue);
   }
 }
