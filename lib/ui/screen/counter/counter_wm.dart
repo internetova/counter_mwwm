@@ -44,7 +44,7 @@ class CounterWidgetModel extends WidgetModel {
   /// обрабатываем нажатие Увеличить
   void _onIncrementAction(_) {
     int currentValue = interactor.getCounter();
-    _changeCounter(currentValue, true);
+    _changeCounter(currentValue, isIncrement: true);
   }
 
   /// обрабатываем нажатие Уменьшить
@@ -53,11 +53,11 @@ class CounterWidgetModel extends WidgetModel {
 
     if (currentValue == 0) return;
 
-    _changeCounter(currentValue, false);
+    _changeCounter(currentValue, isIncrement: false);
   }
 
   /// меняем значение счетчика
-  void _changeCounter(int value, bool isIncrement) {
+  void _changeCounter(int value, {required bool isIncrement}) {
     int currentValue = isIncrement ? value + 1 : value - 1;
 
     counterState.accept(currentValue);
